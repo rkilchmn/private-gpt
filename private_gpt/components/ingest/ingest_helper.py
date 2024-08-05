@@ -89,7 +89,9 @@ class IngestionHelper:
             )
             # Read as a plain text
             string_reader = StringIterableReader()
-            return string_reader.load_data([file_data.read_text()])
+            # fix error: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xd0 in position 0: invalid continuation byte
+            # return string_reader.load_data([file_data.read_text()])
+            return string_reader.load_data([file_data.read_text("utf-8", errors="replace").replace("\x00", "\uFFFD")])            
 
         logger.debug("Specific reader found for extension=%s", extension)
         return reader_cls().load_data(file_data)
