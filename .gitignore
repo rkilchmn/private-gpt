@@ -29,3 +29,7 @@ __pycache__/
 
 # macOS
 .DS_Store
+poetry.lock
+
+# Except for launch.json
+!.vscode/launch.json
